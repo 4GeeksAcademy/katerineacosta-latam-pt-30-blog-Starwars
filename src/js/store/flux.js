@@ -1,42 +1,29 @@
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			demo: [
-				{
-					title: "FIRST",
-					background: "white",
-					initial: "white"
-				},
-				{
-					title: "SECOND",
-					background: "white",
-					initial: "white"
-				}
-			]
+			categories: [
+				{categoryName: "vehicles",},
+				{categoryName: "planets"},
+				{categoryName: "people"},
+			],
+			vehicles:[],
+			planets:[],
+			people:[],
+			selected: null,
+			favorites: []
 		},
 		actions: {
-			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
+			getData: async (categoryName)=>{
+				const res = await fetch(`https://www.swapi.tech/api/${categoryName}`);
+				const data = await res.json();
+				const store  = getStore();
+				setStore({...store, [categoryName]:data.results})
 			},
-			loadSomeData: () => {
-				/**
-					fetch().then().then(data => setStore({ "foo": data.bar }))
-				*/
-			},
-			changeColor: (index, color) => {
-				//get the store
-				const store = getStore();
-
-				//we have to loop the entire demo array to look for the respective index
-				//and change its color
-				const demo = store.demo.map((elm, i) => {
-					if (i === index) elm.background = color;
-					return elm;
-				});
-
-				//reset the global store
-				setStore({ demo: demo });
+			getDetails: async (categoryName, uid) =>{
+				const res = await fetch(`https://www.swapi.tech/api/${categoryName}/${uid}`);
+				const data = await res.json();
+				const store  = getStore();
+				setStore({...store, selected:data.result})
 			}
 		}
 	};

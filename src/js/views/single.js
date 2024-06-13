@@ -6,12 +6,19 @@ import { Context } from "../store/appContext";
 export const Single = props => {
 	const { store, actions } = useContext(Context);
 	const params = useParams();
+
+	useEffect(()=>{
+		actions.getDetails(params.categoryName, params.uid);
+	}, [])
+
 	return (
 		<div className="jumbotron">
-			<h1 className="display-4">This will show the demo element: {store.demo[params.theid].title}</h1>
+		<h1 className="display-4">This will show the demo element: {params.categoryName} - {params.uid}</h1>
 
 			<hr className="my-4" />
-
+			<p>{store.selected?.description}</p>
+			<p>{store.selected?.properties?.diameter}</p>
+			<p>{store.selected?.properties?.gravity}</p>
 			<Link to="/">
 				<span className="btn btn-primary btn-lg" href="#" role="button">
 					Back home
