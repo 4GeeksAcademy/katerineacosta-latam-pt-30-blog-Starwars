@@ -1,7 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../store/appContext";
+import { FavoriteItem } from "./favoriteItem";
 
 export const Navbar = () => {
+	const { store } = useContext(Context);
+
 	return (
 		<nav className="navbar navbar-light bg-light mb-3 px-3">
 			<Link to="/">
@@ -9,13 +13,15 @@ export const Navbar = () => {
 			</Link>
 			<div className="ml-auto">
 				<div className="dropdown">
-					<button className="btn  btn-primary  dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-						Notifications <span className="badge bg-secondary">4</span>
+					<button className="btn  btn-primary  dropdown-toggle" type="button" 
+						id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
+						data-bs-auto-close="false"
+						>
+						Notifications <span className="badge bg-secondary">{store.favorites.length}</span>
 					</button>
 					<ul className="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-						<li><a className="dropdown-item" href="#">Action</a></li>
-						<li><a className="dropdown-item" href="#">Another action</a></li>
-						<li><a className="dropdown-item" href="#">Something else here</a></li>
+						{ store.favorites.length > 0 && store.favorites.map(x => <FavoriteItem key={`${x.name}_${x.uid}`} item={x} /> ) }
+						{ store.favorites.length == 0 && <li ><span className="dropdown-item">No Favorites</span></li>}
 					</ul>
 				</div>
 			</div>

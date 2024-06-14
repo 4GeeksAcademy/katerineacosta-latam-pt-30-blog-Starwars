@@ -24,6 +24,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 				const data = await res.json();
 				const store  = getStore();
 				setStore({...store, selected:data.result})
+			},
+			isFavorite: (item)=>{
+				const store = getStore();
+				const elementInFavorites = store.favorites.find(f=> f.uid == item.uid && f.name == item.name);
+				
+				return elementInFavorites != undefined;
+			},
+			addToFavorites: (item)=>{
+				const store = getStore();
+				store.favorites.push(item);
+				setStore({...store });
+			},
+			removeFromFavorites: (item) => {
+				const store = getStore();
+				setStore({...store, favorites: store.favorites.filter(f=> f.uid != item.uid && f.name != item.name) });
 			}
 		}
 	};

@@ -10,9 +10,9 @@ export const Category = ( { categoryName } ) =>{
 
     return (<>
     <div style={{width:'100%'}} className="my-5">
-        <h2 class="text-capitalize">{categoryName}</h2>
+        <h2 className="text-capitalize">{categoryName}</h2>
         <div className="d-flex " style={{overflowX:'auto'}}>
-            {store[categoryName].map( elem => <CardProfile data={elem} categoryName={categoryName} />)}
+            {store[categoryName].map( elem => <CardProfile key={`${categoryName}_${elem.uid}`} data={elem} categoryName={categoryName} />)}
         </div>
     </div>
     </>)};

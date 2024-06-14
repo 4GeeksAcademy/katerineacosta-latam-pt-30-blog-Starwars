@@ -5,11 +5,11 @@ import "../../styles/home.css";
 import { Category } from "../component/category";
 
 export const Home = () =>{
-	const { store, actions } = useContext(Context);
+	const { store } = useContext(Context);
 	
 
 	return(
 	<>
-		{store.categories.map(x=> <Category categoryName={x.categoryName} />)}		
+		{store.categories.map(x=> <Category key={x.categoryName} categoryName={x.categoryName} />)}		
 	</>
 )};
