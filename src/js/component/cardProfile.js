@@ -13,7 +13,7 @@ export const CardProfile = ( { data, categoryName } ) =>{
 				<h5 className="card-title">{data.name}</h5>
 				<div className="d-flex justify-content-between">
 					<Link to={`/single/${categoryName}/${data.uid}`}  className="btn btn-outline-primary">Learn more!</Link>
-					<button type="button" className="btn btn-outline-warning" onClick={()=> actions.addToFavorites(data)}>
+					<button type="button" className="btn btn-outline-warning" onClick={()=> actions.addToFavorites(data, categoryName)}>
 						<i className={`${actions.isFavorite(data)?'fas':'far'} fa-heart`}>
 						</i>
 					</button>
